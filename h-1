@@ -1,0 +1,15 @@
+#!/bin/bash
+rm  *.class
+rm  *.jar
+rm *.I*
+hdfs dfs -rm -r project/res
+
+hadoop com.sun.tools.javac.Main MovieReview.java
+
+jar cf MovieReview.jar MovieReview*.class
+
+hadoop jar MovieReview.jar MovieReview project/ratedReviews.txt project/res
+
+ls -lh
+hdfs dfs -ls
+hdfs dfs -cat project/res/part-r-00000
